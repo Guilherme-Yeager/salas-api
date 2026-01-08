@@ -1,5 +1,6 @@
 package com.guilhermecode.reserva_salas_api.models;
 
+import com.guilhermecode.reserva_salas_api.models.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +16,16 @@ public class Sala {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "nome", nullable = false)
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
+    private int capacidade;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
+
 }

@@ -13,7 +13,7 @@ public interface SalaMapper {
 
     Sala salaDtoToSala(SalaDto salaDto);
 
-    List<SalaDto> salasToSalaDtos(List<Sala> sala);
+    List<SalaDto> salasToSalaDtos(List<Sala> salas);
 
-    List<Sala> salaDtosToSalas(List<SalaDto> salaDto);
+    List<Sala> salasDtoToSalas(List<SalaDto> salasDto);
 }
