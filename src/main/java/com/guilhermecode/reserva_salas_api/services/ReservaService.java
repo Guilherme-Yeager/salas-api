@@ -16,22 +16,4 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    public List<Reserva> getAll() {
-        return reservaRepository.findAll();
-    }
-
-    public Long create(Reserva reserva) {
-        boolean isReserved = reservaRepository.isReserved(
-                reserva.getSala().getId(),
-                reserva.getDataReserva(),
-                reserva.getHoraInicio(),
-                reserva.getHoraFim()
-        );
-        if (isReserved) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Horário da sala já está reservado.");
-        }
-        return reservaRepository.save(reserva).getId();
-    }
-
-
 }

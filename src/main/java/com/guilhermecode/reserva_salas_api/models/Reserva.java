@@ -33,6 +33,6 @@ public class Reserva {
     private LocalDate dataReserva;
 
     @ManyToOne
-    @JoinColumn(name = "id_sala", nullable = false)
+    @JoinColumn(name = "idSala", nullable = false)
     private Sala sala;
 }

@@ -1,19 +1,20 @@
 package com.guilhermecode.reserva_salas_api.mappers;
 
-import com.guilhermecode.reserva_salas_api.dtos.SalaDto;
+import com.guilhermecode.reserva_salas_api.dtos.SalaRequestDto;
+import com.guilhermecode.reserva_salas_api.dtos.SalaResponseDto;
 import com.guilhermecode.reserva_salas_api.models.Sala;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface SalaMapper {
 
-    SalaDto salaToSalaDto(Sala sala);
+    Sala salaDtoToSala(SalaRequestDto salaRequestDto);
 
-    Sala salaDtoToSala(SalaDto salaDto);
+    @Mapping(source = "id", target = "salaId")
+    SalaResponseDto salaToSalaResponseDto(Sala sala);
 
-    List<SalaDto> salasToSalaDtos(List<Sala> salas);
-
-    List<Sala> salasDtoToSalas(List<SalaDto> salasDto);
+    List<SalaResponseDto> salasToSalasReponseDto(List<Sala> salas);
 }

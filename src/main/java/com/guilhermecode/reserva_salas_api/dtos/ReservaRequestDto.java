@@ -25,5 +25,5 @@ public record ReservaRequestDto(
 
         @NotNull(message = "Sala é obrigatória")
         @Positive
-        Long id_sala
+        Long idSala
 ) { }

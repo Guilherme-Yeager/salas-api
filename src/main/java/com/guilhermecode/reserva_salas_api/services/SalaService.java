@@ -1,14 +1,17 @@
 package com.guilhermecode.reserva_salas_api.services;
 
+import com.guilhermecode.reserva_salas_api.dtos.SalaRequestDto;
+import com.guilhermecode.reserva_salas_api.dtos.SalaResponseDto;
+import com.guilhermecode.reserva_salas_api.exceptions.ConflictException;
+import com.guilhermecode.reserva_salas_api.exceptions.NotFoundException;
+import com.guilhermecode.reserva_salas_api.mappers.SalaMapper;
 import com.guilhermecode.reserva_salas_api.models.Sala;
+import com.guilhermecode.reserva_salas_api.models.enums.Status;
 import com.guilhermecode.reserva_salas_api.repositories.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SalaService {
@@ -16,15 +19,27 @@ public class SalaService {
     @Autowired
     private SalaRepository salaRepository;
 
-    public Sala get(Long id) throws Exception {
-        return salaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada"));
+    @Autowired
+    private SalaMapper salaMapper;
+
+    public SalaResponseDto get(Long id) {
+        return salaRepository
+                .findById(id)
+                .map(salaMapper::salaToSalaResponseDto)
+                .orElseThrow(() -> new NotFoundException("Sala não encontrada."));
     }
 
-    public List<Sala> getAll() {
-        return salaRepository.findAll();
+    public List<SalaResponseDto> getAll() {
+        return salaMapper.salasToSalasReponseDto(salaRepository.findAll());
     }
 
-    public Long create(Sala sala) {
-        return salaRepository.save(sala).getId();
+    public SalaResponseDto create(SalaRequestDto salaRequestDto) {
+        if(salaRepository.existsByNome(salaRequestDto.nome())){
+            throw new ConflictException("Já existe uma sala com esse nome.");
+        }
+
+        Sala sala = salaMapper.salaDtoToSala(salaRequestDto);
+        sala.setStatus(Status.DISPONIVEL);
+        return salaMapper.salaToSalaResponseDto(salaRepository.save(sala));
     }
 }

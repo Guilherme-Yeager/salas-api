@@ -1,16 +1,16 @@
 package com.guilhermecode.reserva_salas_api.controllers;
 
-import com.guilhermecode.reserva_salas_api.dtos.SalaDto;
-import com.guilhermecode.reserva_salas_api.mappers.SalaMapper;
-import com.guilhermecode.reserva_salas_api.models.Sala;
-import com.guilhermecode.reserva_salas_api.models.enums.Status;
+import com.guilhermecode.reserva_salas_api.dtos.DefaultGenericResponse;
+import com.guilhermecode.reserva_salas_api.dtos.SalaRequestDto;
+import com.guilhermecode.reserva_salas_api.dtos.SalaResponseDto;
 import com.guilhermecode.reserva_salas_api.services.SalaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,20 +20,41 @@ public class SalaController {
     @Autowired
     private SalaService salaService;
 
-    @Autowired
-    private SalaMapper salaMapper;
 
     @GetMapping
-    public List<SalaDto> getAll() {
-        List<Sala> salas = salaService.getAll();
-        return salaMapper.salasToSalaDtos(salas);
+    public ResponseEntity<DefaultGenericResponse<List<SalaResponseDto>>> getAll() {
+        List<SalaResponseDto> salasResponseDto = salaService.getAll();
+        DefaultGenericResponse<List<SalaResponseDto>> response = DefaultGenericResponse.success(
+                !salasResponseDto.isEmpty() ? "Salas encontradas com sucesso." : "Nenhuma sala encontrada.",
+                salasResponseDto
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DefaultGenericResponse<SalaResponseDto>> get(@PathVariable Long id) {
+        SalaResponseDto salaResponseDto = salaService.get(id);
+        DefaultGenericResponse<SalaResponseDto> response = DefaultGenericResponse.success(
+                "Sala encontrada com sucesso.",
+                salaResponseDto
+        );
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<SalaDto> create(@RequestBody @Valid SalaDto salaDto) {
-        Sala sala = salaMapper.salaDtoToSala(salaDto);
-        sala.setStatus(Status.DISPONIVEL);
-        salaService.create(sala);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salaMapper.salaToSalaDto(sala));
+    public ResponseEntity<DefaultGenericResponse<SalaResponseDto>> create(@RequestBody @Valid SalaRequestDto salaRequestDto) {
+        SalaResponseDto salaResponseDto = salaService.create(salaRequestDto);
+        DefaultGenericResponse<SalaResponseDto> response = DefaultGenericResponse.success(
+                "Sala criada com sucesso.",
+                salaResponseDto
+        );
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(salaResponseDto.salaId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(response);
     }
 }

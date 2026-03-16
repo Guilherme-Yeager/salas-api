@@ -18,5 +18,5 @@ public record ReservaResponseDto (
         LocalDate dataReserva,
 
         @JsonProperty("sala")
-        SalaDto salaDto
+        SalaRequestDto salaRequestDto
 ) { }
