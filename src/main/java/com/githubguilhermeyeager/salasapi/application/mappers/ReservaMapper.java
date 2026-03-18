@@ -1,4 +1,4 @@
-package com.githubguilhermeyeager.salasapi.application.dtos.mappers;
+package com.githubguilhermeyeager.salasapi.application.mappers;
 
 import org.mapstruct.Mapper;
 

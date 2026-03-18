@@ -4,7 +4,7 @@ import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaRequ
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
 import com.githubguilhermeyeager.salasapi.domain.exceptions.ConflictException;
 import com.githubguilhermeyeager.salasapi.domain.exceptions.NotFoundException;
-import com.githubguilhermeyeager.salasapi.application.dtos.mappers.SalaMapper;
+import com.githubguilhermeyeager.salasapi.application.mappers.SalaMapper;
 import com.githubguilhermeyeager.salasapi.domain.models.Sala;
 import com.githubguilhermeyeager.salasapi.domain.models.enums.Status;
 import com.githubguilhermeyeager.salasapi.infrastructure.repositories.SalaRepository;

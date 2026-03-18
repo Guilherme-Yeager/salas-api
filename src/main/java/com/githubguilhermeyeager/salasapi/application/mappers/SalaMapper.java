@@ -1,4 +1,4 @@
-package com.githubguilhermeyeager.salasapi.application.dtos.mappers;
+package com.githubguilhermeyeager.salasapi.application.mappers;
 
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
