@@ -29,6 +29,6 @@ public class Reserva {
     private LocalDate dataReserva;
 
     @ManyToOne
-    @JoinColumn(name = "idSala", nullable = false)
+    @JoinColumn(name = "id_sala", nullable = false)
     private Sala sala;
 }

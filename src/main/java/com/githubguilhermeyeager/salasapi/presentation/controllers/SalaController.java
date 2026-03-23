@@ -1,6 +1,6 @@
 package com.githubguilhermeyeager.salasapi.presentation.controllers;
 
-import com.githubguilhermeyeager.salasapi.application.dtos.DefaultGenericResponse;
+import com.githubguilhermeyeager.salasapi.application.dtos.DefaultGenericResponseDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
 import com.githubguilhermeyeager.salasapi.infrastructure.services.SalaService;
@@ -22,9 +22,9 @@ public class SalaController {
 
 
     @GetMapping
-    public ResponseEntity<DefaultGenericResponse<List<SalaResponseDto>>> getAll() {
+    public ResponseEntity<DefaultGenericResponseDto<List<SalaResponseDto>>> getAll() {
         List<SalaResponseDto> salasResponseDto = salaService.getAll();
-        DefaultGenericResponse<List<SalaResponseDto>> response = DefaultGenericResponse.success(
+        DefaultGenericResponseDto<List<SalaResponseDto>> response = DefaultGenericResponseDto.success(
                 !salasResponseDto.isEmpty() ? "Salas encontradas com sucesso." : "Nenhuma sala encontrada.",
                 salasResponseDto
         );
@@ -32,9 +32,9 @@ public class SalaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DefaultGenericResponse<SalaResponseDto>> get(@PathVariable Long id) {
+    public ResponseEntity<DefaultGenericResponseDto<SalaResponseDto>> get(@PathVariable Long id) {
         SalaResponseDto salaResponseDto = salaService.get(id);
-        DefaultGenericResponse<SalaResponseDto> response = DefaultGenericResponse.success(
+        DefaultGenericResponseDto<SalaResponseDto> response = DefaultGenericResponseDto.success(
                 "Sala encontrada com sucesso.",
                 salaResponseDto
         );
@@ -42,9 +42,9 @@ public class SalaController {
     }
 
     @PostMapping
-    public ResponseEntity<DefaultGenericResponse<SalaResponseDto>> create(@RequestBody @Valid SalaRequestDto salaRequestDto) {
+    public ResponseEntity<DefaultGenericResponseDto<SalaResponseDto>> create(@RequestBody @Valid SalaRequestDto salaRequestDto) {
         SalaResponseDto salaResponseDto = salaService.create(salaRequestDto);
-        DefaultGenericResponse<SalaResponseDto> response = DefaultGenericResponse.success(
+        DefaultGenericResponseDto<SalaResponseDto> response = DefaultGenericResponseDto.success(
                 "Sala criada com sucesso.",
                 salaResponseDto
         );
