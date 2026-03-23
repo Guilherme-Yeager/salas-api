@@ -1,14 +1,11 @@
-FROM gradle:8-jdk17-alpine AS build
+FROM gradle:8.7-jdk17-alpine AS build
 WORKDIR /app
 
-COPY build.gradle settings.gradle gradlew ./
-COPY gradle ./gradle
-
-RUN chmod +x gradlew
-RUN ./gradlew dependencies --no-daemon
+COPY build.gradle settings.gradle ./
 
 COPY src ./src
-RUN ./gradlew bootJar -x test --no-daemon
+
+RUN gradle bootJar -x test --no-daemon -Dorg.gradle.jvmargs="-Xmx256m"
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
@@ -17,4 +14,4 @@ COPY --from=build /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xmx256m", "-jar", "app.jar"]
