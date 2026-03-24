@@ -22,7 +22,7 @@ public class AuthController {
     ) {
         LoginResponseDto loginResponseDto = usuarioService.logar(loginRequestDto);
         DefaultGenericResponseDto<LoginResponseDto> response = DefaultGenericResponseDto.success(
-                "Token gerado com sucesso.",
+                "Login efetuado com sucesso.",
                 loginResponseDto
         );
         return ResponseEntity.ok(response);
