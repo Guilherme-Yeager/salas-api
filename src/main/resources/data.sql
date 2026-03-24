@@ -8,3 +8,7 @@ INSERT INTO reserva(hora_inicio, hora_fim, data_reserva, id_sala)
     VALUES
         ('08:00', '10:00', '2026-01-07', 1),
         ('05:00', '08:30', '2026-02-15', 2);
+
+INSERT INTO usuario (nome, email, senha, role)
+    VALUES
+        ('Guilherme Lima Santos', 'guilh2rm2lima@gmail.com', '$2a$12$B1DYEbLW/AAvDmt2WQ3iFu8PN8nmIm8Aw4/iRMVgRLm.CFbuAMZ8.', 'GESTOR');

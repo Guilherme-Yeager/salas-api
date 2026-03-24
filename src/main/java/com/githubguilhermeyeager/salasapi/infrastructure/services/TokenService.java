@@ -5,9 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.githubguilhermeyeager.salasapi.application.dtos.login.responses.LoginResponseDto;
+import com.githubguilhermeyeager.salasapi.domain.models.Usuario;
 import com.githubguilhermeyeager.salasapi.infrastructure.exceptions.jwt.JwtExpiradoException;
 import com.githubguilhermeyeager.salasapi.infrastructure.exceptions.jwt.JwtInvalidoException;
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +27,16 @@ public class TokenService {
     @Value("${spring.emissor}")
     private String emissor;
 
-    public LoginResponseDto gerarToken(String email) {
+    public LoginResponseDto gerarToken(Usuario usuario) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         return new LoginResponseDto(
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getRole().toString(),
                 JWT.create()
                         .withIssuer(emissor)
-                        .withSubject(email)
+                        .withSubject(usuario.getEmail())
                         .withExpiresAt(this.getTokenExpiracao())
                         .sign(algorithm)
         );
