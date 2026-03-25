@@ -19,7 +19,9 @@ A API utiliza **JSON Web Token (JWT)** para autenticação e autorização:
 - **Roles:** Controle de acesso baseado em perfis (ex: `GESTOR` para operações administrativas).
 - **Proteção:** Endpoints sensíveis exigem o envio do token no cabeçalho `Authorization`.
 
-## 📖 Documentação (Swagger)
+<h1 align="center">
+  📖 Documentação
+</h1>
 
 A documentação interativa da API foi implementada com **SpringDoc OpenAPI**. Por ela, é possível testar todos os endpoints, inclusive os que exigem autenticação via o botão "Authorize".
 
