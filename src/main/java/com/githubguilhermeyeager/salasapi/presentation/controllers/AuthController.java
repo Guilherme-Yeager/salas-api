@@ -4,6 +4,7 @@ import com.githubguilhermeyeager.salasapi.application.dtos.DefaultGenericRespons
 import com.githubguilhermeyeager.salasapi.application.dtos.login.requests.LoginRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.login.responses.LoginResponseDto;
 import com.githubguilhermeyeager.salasapi.infrastructure.services.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Auth", description = " Autenticação de usuários.")
 public class AuthController {
 
     @Autowired

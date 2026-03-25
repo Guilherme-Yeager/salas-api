@@ -3,10 +3,13 @@ package com.githubguilhermeyeager.salasapi.presentation.controllers;
 import com.githubguilhermeyeager.salasapi.application.dtos.DefaultGenericResponseDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
-import com.githubguilhermeyeager.salasapi.infrastructure.services.SalaService;
+import com.githubguilhermeyeager.salasapi.infrastructure.services.SalaServiceJpa;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -15,10 +18,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/salas")
+@EnableMethodSecurity
+@Tag(name = "Sala", description = "CRUD de salas.")
 public class SalaController {
 
     @Autowired
-    private SalaService salaService;
+    private SalaServiceJpa salaService;
 
 
     @GetMapping
@@ -42,6 +47,7 @@ public class SalaController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('GESTOR')")
     public ResponseEntity<DefaultGenericResponseDto<SalaResponseDto>> create(@RequestBody @Valid SalaRequestDto salaRequestDto) {
         SalaResponseDto salaResponseDto = salaService.create(salaRequestDto);
         DefaultGenericResponseDto<SalaResponseDto> response = DefaultGenericResponseDto.success(

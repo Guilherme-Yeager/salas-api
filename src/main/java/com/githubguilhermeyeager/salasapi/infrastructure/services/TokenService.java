@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.githubguilhermeyeager.salasapi.application.dtos.login.responses.LoginResponseDto;
 import com.githubguilhermeyeager.salasapi.domain.models.Usuario;
 import com.githubguilhermeyeager.salasapi.infrastructure.exceptions.jwt.JwtExpiradoException;
@@ -22,7 +23,7 @@ public class TokenService {
     private String secret;
 
     @Value("${spring.expiration}")
-    private long expriration;
+    private long expiration;
 
     @Value("${spring.emissor}")
     private String emissor;
@@ -37,19 +38,19 @@ public class TokenService {
                 JWT.create()
                         .withIssuer(emissor)
                         .withSubject(usuario.getEmail())
+                        .withClaim("role", usuario.getRole().name())
                         .withExpiresAt(this.getTokenExpiracao())
                         .sign(algorithm)
         );
     }
 
-    public String verificarToken(String token) {
+    public DecodedJWT verificarToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer(emissor)
                     .build()
-                    .verify(token)
-                    .getSubject();
+                    .verify(token);
         } catch (TokenExpiredException e) {
             throw new JwtExpiradoException("O token expirou, faça login novamente!");
         } catch (JWTVerificationException e) {
@@ -58,6 +59,6 @@ public class TokenService {
     }
 
     private Instant getTokenExpiracao() {
-        return LocalDateTime.now().plusMinutes(expriration).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusMinutes(expiration).toInstant(ZoneOffset.of("-03:00"));
     }
 }

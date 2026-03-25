@@ -1,6 +1,7 @@
 package com.githubguilhermeyeager.salasapi.infrastructure.services;
 
-import com.githubguilhermeyeager.salasapi.infrastructure.repositories.UsuarioRepository;
+import com.githubguilhermeyeager.salasapi.infrastructure.repositories.UsuarioRepositoryJpa;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Service;
 public class AuthService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepositoryJpa usuarioRepositoryJpa;
 
     @Override
+    @NullMarked
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return usuarioRepository
+        return usuarioRepositoryJpa
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }

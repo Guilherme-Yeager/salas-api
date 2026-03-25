@@ -18,7 +18,7 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(JwtException.class)
-    ResponseEntity<DefaultGenericResponseDto<Object>> handleJwt(NotFoundException ex) {
+    ResponseEntity<DefaultGenericResponseDto<Object>> handleJwt(JwtException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(DefaultGenericResponseDto.error(ex.getMessage()));
     }
 

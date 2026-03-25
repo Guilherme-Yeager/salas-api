@@ -1,9 +1,9 @@
 package com.githubguilhermeyeager.salasapi.infrastructure.security;
 
+import com.githubguilhermeyeager.salasapi.infrastructure.security.exceptions.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -23,14 +23,19 @@ public class SecurityConfiguration {
     @Autowired
     private JwtFilter jwtFilter;
 
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) {
+    public SecurityFilterChain configureSecurity(HttpSecurity http) {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> ex.accessDeniedHandler(customAccessDeniedHandler))
                 .authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .requestMatchers("/auth/login", "/").permitAll()
                                 .requestMatchers("/users/**").hasRole("GESTOR")
                                 .anyRequest().authenticated()

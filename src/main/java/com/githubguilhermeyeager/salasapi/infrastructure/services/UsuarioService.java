@@ -6,24 +6,22 @@ import com.githubguilhermeyeager.salasapi.application.dtos.usario.response.Usuar
 import com.githubguilhermeyeager.salasapi.application.mappers.UsuarioMapper;
 import com.githubguilhermeyeager.salasapi.domain.exceptions.NotFoundException;
 import com.githubguilhermeyeager.salasapi.domain.models.Usuario;
-import com.githubguilhermeyeager.salasapi.infrastructure.repositories.UsuarioRepository;
+import com.githubguilhermeyeager.salasapi.domain.repositories.UsarioRepository;
+import com.githubguilhermeyeager.salasapi.infrastructure.repositories.UsuarioRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UsarioRepository {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioRepositoryJpa usuarioRepositoryJpa;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -46,7 +44,7 @@ public class UsuarioService {
     }
 
     public UsuarioDetailsResponseDto findByEmail(String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email)
+        Usuario usuario = usuarioRepositoryJpa.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
 
         return usuarioMapper.usuarioToUsuarioDetailsDto(usuario);

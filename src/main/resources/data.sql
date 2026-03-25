@@ -11,4 +11,5 @@ INSERT INTO reserva(hora_inicio, hora_fim, data_reserva, id_sala)
 
 INSERT INTO usuario (nome, email, senha, role)
     VALUES
-        ('Guilherme Lima Santos', 'guilh2rm2lima@gmail.com', '$2a$12$B1DYEbLW/AAvDmt2WQ3iFu8PN8nmIm8Aw4/iRMVgRLm.CFbuAMZ8.', 'GESTOR');
+        ('Guilherme Lima Santos', 'guilh2rm2lima@gmail.com', '$2a$12$js14gvHLTDqRRz8y/87fcu.vYPujt2tTDimDSK7kkvTl2ySMu/Scm', 'GESTOR'),
+        ('José Gilson Santos', 'jose.gilson60@gmail.com', '$2a$12$js14gvHLTDqRRz8y/87fcu.vYPujt2tTDimDSK7kkvTl2ySMu/Scm', 'PARTICIPANTE');
