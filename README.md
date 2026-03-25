@@ -11,7 +11,7 @@ Este projeto é uma **API REST** para gerenciamento e reserva de salas, desenvol
 A API permite o cadastro de usuários, salas e a realização de agendamentos.
 
 <h1 align="center">
-  🔐 Segurança com JWT
+  🔐 Segurança
 </h1>
 
 A API utiliza **JSON Web Token (JWT)** para autenticação e autorização:
