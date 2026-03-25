@@ -29,7 +29,9 @@ A documentação interativa da API foi implementada com **SpringDoc OpenAPI**. P
   <img width="1117" alt="Interface do Swagger" src="https://github.com/user-attachments/assets/ad74f182-1914-4c31-b7e4-a3b75b54447d" />
 </p>
 
-## 🛠️ Tecnologias Utilizadas
+<h1 align="center">
+  🛠️ Tecnologias Utilizadas
+</h1>
 
 - **Linguagem:** Java 21
 - **Framework:** Spring Boot 4
