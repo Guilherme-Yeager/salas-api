@@ -11,4 +11,6 @@ public record SalaRequestDto(
 
         @Min(value = 1, message = "Capacidade mínima é 1")
         int capacidade
-) {}
+) {
+
+}

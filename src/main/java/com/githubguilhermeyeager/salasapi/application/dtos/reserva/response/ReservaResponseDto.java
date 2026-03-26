@@ -1,13 +1,15 @@
 package com.githubguilhermeyeager.salasapi.application.dtos.reserva.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
+import com.githubguilhermeyeager.salasapi.application.dtos.usario.response.UsuarioDetailsResponseDto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record ReservaResponseDto (
+
+        Long codigo,
 
         @JsonFormat(pattern = "HH:mm")
         LocalTime horaInicio,
@@ -18,5 +20,7 @@ public record ReservaResponseDto (
         @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate dataReserva,
 
-        SalaResponseDto sala
+        SalaResponseDto sala,
+
+        UsuarioDetailsResponseDto usuario
 ) { }

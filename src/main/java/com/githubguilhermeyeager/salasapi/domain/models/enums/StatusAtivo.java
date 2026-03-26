@@ -1,6 +1,6 @@
 package com.githubguilhermeyeager.salasapi.domain.models.enums;
 
-public enum Status {
-    DISPONIVEL,
-    RESERVADA
+public enum StatusAtivo {
+    ATIVA,
+    INATIVA
 }

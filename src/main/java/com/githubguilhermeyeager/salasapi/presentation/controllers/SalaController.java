@@ -58,7 +58,7 @@ public class SalaController {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(salaResponseDto.salaId())
+                .buildAndExpand(salaResponseDto.codigo())
                 .toUri();
 
         return ResponseEntity.created(uri).body(response);

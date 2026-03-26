@@ -6,6 +6,7 @@ import com.githubguilhermeyeager.salasapi.infrastructure.services.ReservaService
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,17 @@ public class ReservaController {
                 reservaResponseDtos.isEmpty() ?
                         "Nenhuma reserva encontrada." : "Reservas encontradas com sucesso.",
                 reservaResponseDtos
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('GESTOR')")
+    public ResponseEntity<DefaultGenericResponseDto<ReservaResponseDto>> delete(@PathVariable Long id){
+        ReservaResponseDto reservaResponseDto = reservaService.delete(id);
+        DefaultGenericResponseDto<ReservaResponseDto> response = DefaultGenericResponseDto.success(
+                "Reserva deletada com sucesso.",
+                reservaResponseDto
         );
         return ResponseEntity.ok(response);
     }

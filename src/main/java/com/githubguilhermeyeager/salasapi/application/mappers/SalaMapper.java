@@ -5,6 +5,7 @@ import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaRes
 import com.githubguilhermeyeager.salasapi.domain.models.Sala;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -13,7 +14,10 @@ public interface SalaMapper {
 
     Sala salaDtoToSala(SalaRequestDto salaRequestDto);
 
-    @Mapping(source = "id", target = "salaId")
+    @Mappings({
+            @Mapping(source = "id", target = "codigo"),
+            @Mapping(source = "statusAtivo", target = "status"),
+    })
     SalaResponseDto salaToSalaResponseDto(Sala sala);
 
     List<SalaResponseDto> salasToSalasReponseDto(List<Sala> salas);

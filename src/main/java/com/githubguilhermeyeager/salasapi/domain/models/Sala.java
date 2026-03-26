@@ -1,6 +1,6 @@
 package com.githubguilhermeyeager.salasapi.domain.models;
 
-import com.githubguilhermeyeager.salasapi.domain.models.enums.Status;
+import com.githubguilhermeyeager.salasapi.domain.models.enums.StatusAtivo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Sala {
     private int capacidade;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Status status;
+    @Column(name = "status", nullable = false)
+    private StatusAtivo statusAtivo;
 
 }

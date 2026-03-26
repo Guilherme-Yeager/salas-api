@@ -17,6 +17,12 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<DefaultGenericResponseDto<String>> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest()
+                .body(DefaultGenericResponseDto.error(ex.getMessage()));
+    }
+
     @ExceptionHandler(JwtException.class)
     ResponseEntity<DefaultGenericResponseDto<Object>> handleJwt(JwtException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(DefaultGenericResponseDto.error(ex.getMessage()));

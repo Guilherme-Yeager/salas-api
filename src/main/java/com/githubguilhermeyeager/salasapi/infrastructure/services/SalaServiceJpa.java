@@ -6,7 +6,7 @@ import com.githubguilhermeyeager.salasapi.domain.exceptions.ConflictException;
 import com.githubguilhermeyeager.salasapi.domain.exceptions.NotFoundException;
 import com.githubguilhermeyeager.salasapi.application.mappers.SalaMapper;
 import com.githubguilhermeyeager.salasapi.domain.models.Sala;
-import com.githubguilhermeyeager.salasapi.domain.models.enums.Status;
+import com.githubguilhermeyeager.salasapi.domain.models.enums.StatusAtivo;
 import com.githubguilhermeyeager.salasapi.domain.repositories.SalaRepository;
 import com.githubguilhermeyeager.salasapi.infrastructure.repositories.SalaRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class SalaServiceJpa implements SalaRepository {
         }
 
         Sala sala = salaMapper.salaDtoToSala(salaRequestDto);
-        sala.setStatus(Status.DISPONIVEL);
+        sala.setStatusAtivo(StatusAtivo.ATIVA);
         return salaMapper.salaToSalaResponseDto(salaRepositoryJpa.save(sala));
     }
 }
