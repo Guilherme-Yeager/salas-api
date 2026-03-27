@@ -1,6 +1,8 @@
 package com.githubguilhermeyeager.salasapi.infrastructure.exceptions.jwt;
 
-public class JwtInvalidoException extends JwtExpiradoException {
+import com.githubguilhermeyeager.salasapi.infrastructure.exceptions.JwtException;
+
+public class JwtInvalidoException extends JwtException {
     public JwtInvalidoException(String message) {
         super(message);
     }

@@ -1,4 +1,4 @@
-package com.githubguilhermeyeager.salasapi.infrastructure.security.exceptions;
+package com.githubguilhermeyeager.salasapi.infrastructure.security.handler;
 
 import com.githubguilhermeyeager.salasapi.application.dtos.DefaultGenericResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     private ObjectMapper mapper;
 
     @Override
-    public void handle(@NonNull HttpServletRequest request, HttpServletResponse response, @NonNull AccessDeniedException accessDeniedException) throws IOException {
+    public void handle(
+            @NonNull HttpServletRequest request, HttpServletResponse response, @NonNull AccessDeniedException accessDeniedException
+    ) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 

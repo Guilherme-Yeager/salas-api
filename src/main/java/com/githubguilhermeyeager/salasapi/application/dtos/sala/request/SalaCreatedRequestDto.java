@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 
-public record SalaRequestDto(
+public record SalaCreatedRequestDto(
 
         @NotBlank(message = "Nome é obrigatório")
         String nome,

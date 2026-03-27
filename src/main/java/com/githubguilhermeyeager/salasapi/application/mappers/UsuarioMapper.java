@@ -1,6 +1,6 @@
 package com.githubguilhermeyeager.salasapi.application.mappers;
 
-import com.githubguilhermeyeager.salasapi.application.dtos.usario.request.UsuarioRequestDto;
+import com.githubguilhermeyeager.salasapi.application.dtos.usario.request.UsuarioCreatedRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.usario.response.UsuarioDetailsResponseDto;
 import com.githubguilhermeyeager.salasapi.domain.models.Usuario;
 import com.githubguilhermeyeager.salasapi.domain.models.enums.Role;
@@ -13,6 +13,6 @@ public interface UsuarioMapper {
     @Mapping(target = "codigo", source = "id")
     UsuarioDetailsResponseDto usuarioToUsuarioDetailsDto(Usuario usuario);
 
-    @Mapping(target = "role", expression = "java(Role.fromNumero(usuarioRequestDto.role()))")
-    Usuario usuarioRequestDtoToUsuario(UsuarioRequestDto usuarioRequestDto);
+    @Mapping(target = "role", expression = "java(Role.fromNumero(usuarioCreatedRequestDto.role()))")
+    Usuario usuarioRequestDtoToUsuario(UsuarioCreatedRequestDto usuarioCreatedRequestDto);
 }

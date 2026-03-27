@@ -2,7 +2,7 @@ package com.githubguilhermeyeager.salasapi.infrastructure.services;
 
 import com.githubguilhermeyeager.salasapi.application.dtos.login.requests.LoginRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.login.responses.LoginResponseDto;
-import com.githubguilhermeyeager.salasapi.application.dtos.usario.request.UsuarioRequestDto;
+import com.githubguilhermeyeager.salasapi.application.dtos.usario.request.UsuarioCreatedRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.usario.response.UsuarioDetailsResponseDto;
 import com.githubguilhermeyeager.salasapi.application.mappers.UsuarioMapper;
 import com.githubguilhermeyeager.salasapi.domain.exceptions.ConflictException;
@@ -18,11 +18,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UsuarioService implements UsarioRepository {
 
     @Autowired
@@ -69,12 +71,12 @@ public class UsuarioService implements UsarioRepository {
                 .toList();
     }
 
-    public  UsuarioDetailsResponseDto create(UsuarioRequestDto usuarioRequestDto) {
-        if(usuarioRepositoryJpa.existsByEmail(usuarioRequestDto.email())){
+    public  UsuarioDetailsResponseDto create(UsuarioCreatedRequestDto usuarioCreatedRequestDto) {
+        if(usuarioRepositoryJpa.existsByEmail(usuarioCreatedRequestDto.email())){
             throw new ConflictException("Já existe um usuário cadastrado com esse email.");
         }
 
-        Usuario usuario = usuarioMapper.usuarioRequestDtoToUsuario(usuarioRequestDto);
+        Usuario usuario = usuarioMapper.usuarioRequestDtoToUsuario(usuarioCreatedRequestDto);
 
         String senha = passwordEncoder.encode(defaultPassword);
         usuario.setSenha(senha);

@@ -1,7 +1,7 @@
 package com.githubguilhermeyeager.salasapi.presentation.controllers;
 
 import com.githubguilhermeyeager.salasapi.application.dtos.DefaultGenericResponseDto;
-import com.githubguilhermeyeager.salasapi.application.dtos.usario.request.UsuarioRequestDto;
+import com.githubguilhermeyeager.salasapi.application.dtos.usario.request.UsuarioCreatedRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.usario.response.UsuarioDetailsResponseDto;
 import com.githubguilhermeyeager.salasapi.infrastructure.services.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -51,9 +50,9 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<DefaultGenericResponseDto<UsuarioDetailsResponseDto>> create(
-            @RequestBody @Valid UsuarioRequestDto usuarioRequestDto
+            @RequestBody @Valid UsuarioCreatedRequestDto usuarioCreatedRequestDto
     ){
-        UsuarioDetailsResponseDto usuarioDetailsResponseDto = usuarioService.create(usuarioRequestDto);
+        UsuarioDetailsResponseDto usuarioDetailsResponseDto = usuarioService.create(usuarioCreatedRequestDto);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

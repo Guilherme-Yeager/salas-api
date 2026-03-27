@@ -1,6 +1,6 @@
 package com.githubguilhermeyeager.salasapi.domain.repositories;
 
-import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaRequestDto;
+import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaCreatedRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public interface SalaRepository {
 
     List<SalaResponseDto> getAll();
 
-    SalaResponseDto create(SalaRequestDto salaRequestDto);
+    SalaResponseDto create(SalaCreatedRequestDto salaCreatedRequestDto);
 }

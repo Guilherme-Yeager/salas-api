@@ -1,6 +1,6 @@
 package com.githubguilhermeyeager.salasapi.application.mappers;
 
-import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaRequestDto;
+import com.githubguilhermeyeager.salasapi.application.dtos.sala.request.SalaCreatedRequestDto;
 import com.githubguilhermeyeager.salasapi.application.dtos.sala.response.SalaResponseDto;
 import com.githubguilhermeyeager.salasapi.domain.models.Sala;
 import org.mapstruct.Mapper;
@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface SalaMapper {
 
-    Sala salaDtoToSala(SalaRequestDto salaRequestDto);
+    Sala salaDtoToSala(SalaCreatedRequestDto salaCreatedRequestDto);
 
     @Mappings({
             @Mapping(source = "id", target = "codigo"),
